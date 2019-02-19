@@ -22,7 +22,7 @@ class FW_Extension_Sign_Form extends FW_Extension {
         
         ), $atts );
 
-        wp_localize_script( 'sign-form', 'ajaxPortfolioParams', array(
+        wp_localize_script( 'sign-form', 'signFormParams', array(
             'nonce' => wp_create_nonce( 'sign-form-nonce' ),
             'ext'   => $this,
             'atts'  => $atts,
@@ -58,7 +58,7 @@ class FW_Extension_Sign_Form extends FW_Extension {
         if ( function_exists( 'kc_add_map' ) ) {
             kc_add_map( array(
                 $shortcodeName => array(
-                    'name'     => esc_html__( 'Ajax Portfolio', 'sign-form' ),
+                    'name'     => esc_html__( 'Sign Form', 'sign-form' ),
                     'category' => esc_html__( 'Crumina', 'sign-form' ),
                     'icon'     => 'kc-sign-form-icon',
                     'params'   => array(
@@ -81,7 +81,7 @@ class FW_Extension_Sign_Form extends FW_Extension {
         if ( function_exists( 'vc_map' ) ) {
             vc_map( array(
                 'base'     => $shortcodeName,
-                'name'     => esc_html__( 'Ajax Portfolio', 'sign-form' ),
+                'name'     => esc_html__( 'Sign Form', 'sign-form' ),
                 'category' => esc_html__( 'Crumina', 'sign-form' ),
                 'icon'     => $ext->locate_URI( '/static/img/builder-ico.svg' ),
                 'params'   => array(

@@ -6,4 +6,4 @@ if ( !defined( 'FW' ) ) {
 
 $cfg = array();
 
-$cfg[ 'shortcodeName' ] = 'crumina-sign-form';
+$cfg[ 'shortcodeName' ] = 'sign-form';
