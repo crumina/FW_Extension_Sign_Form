@@ -11,6 +11,7 @@ class FW_Extension_Sign_Form extends FW_Extension {
     }
 
     public function shortcode( $atts ) {
+        global $wp;
 
         $builder_type = isset( $atts[ 'builder_type' ] ) ? $atts[ 'builder_type' ] : '';
 
@@ -19,8 +20,19 @@ class FW_Extension_Sign_Form extends FW_Extension {
         }
 
         $atts = shortcode_atts( array(
-        
-        ), $atts );
+            'forms'        => 'both',
+            'redirect'     => 'current',
+            'redirect_to'  => '',
+            'login_descr'  => '',
+                ), $atts );
+
+        $redirect_to = filter_var( $atts[ 'redirect_to' ], FILTER_VALIDATE_URL );
+
+        if ( $redirect_to && $atts[ 'redirect' ] === 'custom' ) {
+            $atts[ 'redirect_to' ] = $redirect_to;
+        } else {
+            $atts[ 'redirect_to' ] = home_url( $wp->request );
+        }
 
         wp_localize_script( 'sign-form', 'signFormParams', array(
             'nonce' => wp_create_nonce( 'sign-form-nonce' ),
@@ -28,11 +40,7 @@ class FW_Extension_Sign_Form extends FW_Extension {
             'atts'  => $atts,
         ) );
 
-        return $this->render_view( 'main', array(
-            'ext'  => $this,
-            'atts' => $atts,
-        ) );
-        
+        return $this->render_view( 'form', $atts );
     }
 
     /**
@@ -62,7 +70,6 @@ class FW_Extension_Sign_Form extends FW_Extension {
                     'category' => esc_html__( 'Crumina', 'sign-form' ),
                     'icon'     => 'kc-sign-form-icon',
                     'params'   => array(
-                        
                         array(
                             'type'  => 'hidden',
                             'name'  => 'builder_type',
@@ -85,8 +92,47 @@ class FW_Extension_Sign_Form extends FW_Extension {
                 'category' => esc_html__( 'Crumina', 'sign-form' ),
                 'icon'     => $ext->locate_URI( '/static/img/builder-ico.svg' ),
                 'params'   => array(
-                    
-                    
+                    array(
+                        'heading'    => esc_html__( 'Redirect', 'crumina' ),
+                        'param_name' => 'forms',
+                        'type'       => 'dropdown',
+                        'value'      => array(
+                            esc_html__( 'Both', 'crumina' )     => 'both',
+                            esc_html__( 'Login', 'crumina' )    => 'login',
+                            esc_html__( 'Register', 'crumina' ) => 'register',
+                        ),
+                        'std'        => 'both',
+                    ),
+                    array(
+                        'heading'    => esc_html__( 'Redirect to', 'crumina' ),
+                        'param_name' => 'redirect',
+                        'type'       => 'dropdown',
+                        'value'      => array(
+                            esc_html__( 'Current page', 'crumina' ) => 'current',
+                            esc_html__( 'Profile page', 'crumina' ) => 'profile',
+                            esc_html__( 'Custom page', 'crumina' )  => 'custom',
+                        ),
+                        'std'        => 'current',
+                    ),
+                    array(
+                        'heading'    => esc_html__( 'Redirect URL', 'crumina' ),
+                        'param_name' => 'redirect_to',
+                        'type'       => 'textfield',
+                        'dependency' => array(
+                            'element' => 'redirect',
+                            'value'   => 'custom',
+                        )
+                    ),
+                    array(
+                        'heading'     => esc_html__( 'Login description', 'crumina' ),
+                        'param_name'  => 'login_descr',
+                        'type'        => 'textarea',
+                        'description' => esc_html__( 'You can use [register_link text="" url=""] shortcode', 'crumina' ),
+                        'dependency'  => array(
+                            'element' => 'forms',
+                            'value'   => array( 'both', 'login' ),
+                        )
+                    ),
                     array(
                         'type'       => 'hidden',
                         'param_name' => 'builder_type',

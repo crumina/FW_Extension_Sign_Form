@@ -7,3 +7,10 @@ if ( !defined( 'FW' ) ) {
 $cfg = array();
 
 $cfg[ 'shortcodeName' ] = 'sign-form';
+
+$cfg[ 'selectors' ] = array(
+    
+    //It will be ids
+    'formContainer' => 'crumina-sign-form',
+    
+);

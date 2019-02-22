@@ -18,5 +18,8 @@ function crumina_get_reg_form_html( $redirect_to = '' ) {
 
     return $ext->get_view( 'form', array(
                 'redirect_to' => $redirect_to,
+                'forms'       => 'both',
+                'redirect'    => 'current',
+                'login_descr' => '',
             ) );
 }
