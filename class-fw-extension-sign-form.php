@@ -7,23 +7,24 @@ if ( !defined( 'FW' ) ) {
 class FW_Extension_Sign_Form extends FW_Extension {
 
     protected function _init() {
-        add_shortcode( $this->get_config( 'shortcodeName' ), array( $this, 'shortcode' ) );
+        add_shortcode( $this->get_config( 'builderComponent' ), array( $this, 'builderComponent' ) );
+        add_shortcode( $this->get_config( 'registerLinkSC' ), array( $this, 'registerLink' ) );
     }
 
-    public function shortcode( $atts ) {
+    public function builderComponent( $atts ) {
         global $wp;
 
         $builder_type = isset( $atts[ 'builder_type' ] ) ? $atts[ 'builder_type' ] : '';
 
         if ( $builder_type !== 'kc' && function_exists( 'vc_map_get_attributes' ) ) {
-            $atts = vc_map_get_attributes( $this->get_config( 'shortcodeName' ), $atts );
+            $atts = vc_map_get_attributes( $this->get_config( 'builderComponent' ), $atts );
         }
 
         $atts = shortcode_atts( array(
-            'forms'        => 'both',
-            'redirect'     => 'current',
-            'redirect_to'  => '',
-            'login_descr'  => '',
+            'forms'       => 'both',
+            'redirect'    => 'current',
+            'redirect_to' => '',
+            'login_descr' => '',
                 ), $atts );
 
         $redirect_to = filter_var( $atts[ 'redirect_to' ], FILTER_VALIDATE_URL );
@@ -41,6 +42,20 @@ class FW_Extension_Sign_Form extends FW_Extension {
         ) );
 
         return $this->render_view( 'form', $atts );
+    }
+
+    public function registerLink( $atts ) {
+        $atts = shortcode_atts( array(
+            'url'  => '',
+            'text' => '',
+                ), $atts );
+
+        $atts[ 'url' ] = filter_var( $atts[ 'url' ], FILTER_VALIDATE_URL );
+
+        $url  = $atts[ 'url' ] ? $atts[ 'url' ] : esc_url( wp_registration_url() );
+        $text = $atts[ 'text' ] ? $atts[ 'text' ] : esc_html__( 'Register Now!', 'crumina' );
+
+        return "<a href='{$url}'>{$text}</a>";
     }
 
     /**
@@ -61,11 +76,11 @@ class FW_Extension_Sign_Form extends FW_Extension {
     }
 
     public static function kc_mapping() {
-        $shortcodeName = fw_ext( 'sign-form' )->get_config( 'shortcodeName' );
+        $builderComponent = fw_ext( 'sign-form' )->get_config( 'builderComponent' );
 
         if ( function_exists( 'kc_add_map' ) ) {
             kc_add_map( array(
-                $shortcodeName => array(
+                $builderComponent => array(
                     'name'     => esc_html__( 'Sign Form', 'sign-form' ),
                     'category' => esc_html__( 'Crumina', 'sign-form' ),
                     'icon'     => 'kc-sign-form-icon',
@@ -82,12 +97,12 @@ class FW_Extension_Sign_Form extends FW_Extension {
     }
 
     public static function vc_mapping() {
-        $ext           = fw_ext( 'sign-form' );
-        $shortcodeName = $ext->get_config( 'shortcodeName' );
+        $ext              = fw_ext( 'sign-form' );
+        $builderComponent = $ext->get_config( 'builderComponent' );
 
         if ( function_exists( 'vc_map' ) ) {
             vc_map( array(
-                'base'     => $shortcodeName,
+                'base'     => $builderComponent,
                 'name'     => esc_html__( 'Sign Form', 'sign-form' ),
                 'category' => esc_html__( 'Crumina', 'sign-form' ),
                 'icon'     => $ext->locate_URI( '/static/img/builder-ico.svg' ),

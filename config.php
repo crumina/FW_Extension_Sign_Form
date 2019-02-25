@@ -6,7 +6,8 @@ if ( !defined( 'FW' ) ) {
 
 $cfg = array();
 
-$cfg[ 'shortcodeName' ] = 'sign-form';
+$cfg[ 'builderComponent' ] = 'sign-form';
+$cfg[ 'registerLinkSC' ] = 'register-link';
 
 $cfg[ 'selectors' ] = array(
     

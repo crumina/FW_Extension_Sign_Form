@@ -35,18 +35,22 @@ $can_register = get_option( 'users_can_register' );
                         <?php esc_html_e( 'Remember Me', 'crumina' ); ?>
                     </label>
                 </div>
-                <a href="<?php echo home_url( '/my-account/lost-password/' ); ?>"
-                   class="forgot"><?php esc_html_e( 'Forgot my Password', 'crumina' ); ?></a>
+
+                <a href="<?php echo home_url( '/my-account/lost-password/' ); ?>" class="forgot"><?php esc_html_e( 'Forgot my Password', 'crumina' ); ?></a>
             </div>
 
-            <button type="submit"
-                    class="btn btn-lg btn-primary full-width"><?php esc_html_e( 'Login', 'crumina' ); ?></button>
+            <button type="submit" class="btn btn-lg btn-primary full-width"><?php esc_html_e( 'Login', 'crumina' ); ?></button>
 
             <?php echo apply_filters( 'login_form_bottom', '' ); ?>
 
             <?php
             if ( $can_register ) {
-                echo apply_filters( 'the_content', $login_descr );
+
+                if ( $login_descr ) {
+                    echo apply_filters( 'the_content', $login_descr );
+                } else {
+                    echo sprintf( '<p>%s <a href="%s">%s</a> %s</p>', esc_html__( 'Don\'t you have an account?', 'olympus' ), esc_url( wp_registration_url() ), esc_html__( 'Register Now!', 'olympus' ), esc_html__( 'it\'s really simple and you can start enjoing all the benefits!', 'olympus' ) );
+                }
             }
             ?>
         </div>
