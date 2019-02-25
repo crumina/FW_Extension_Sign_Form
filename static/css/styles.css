@@ -1,0 +1,13 @@
+.password-eye-wrap {
+  position: relative; }
+  .password-eye-wrap .password-eye {
+    text-decoration: none;
+    font-size: 16px;
+    color: #888da8;
+    position: absolute;
+    right: 15px;
+    top: 19px; }
+    .password-eye-wrap .password-eye:hover {
+      color: #6b7192; }
+
+/*# sourceMappingURL=styles.css.map */

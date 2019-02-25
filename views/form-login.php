@@ -22,8 +22,9 @@ $can_register = get_option( 'users_can_register' );
                 <label class="control-label"><?php esc_html_e( 'Username', 'crumina' ); ?></label>
                 <input class="form-control" name="log" >
             </div>
-            <div class="form-group label-floating">
+            <div class="form-group label-floating password-eye-wrap">
                 <label class="control-label"><?php esc_html_e( 'Your Password', 'crumina' ); ?></label>
+                <a href="#" class="fa fa-fw fa-eye password-eye"></a>
                 <input class="form-control" name="pwd"  type="password">
             </div>
 
@@ -36,7 +37,7 @@ $can_register = get_option( 'users_can_register' );
                     </label>
                 </div>
 
-                <a href="<?php echo home_url( '/my-account/lost-password/' ); ?>" class="forgot"><?php esc_html_e( 'Forgot my Password', 'crumina' ); ?></a>
+                <a href="<?php echo wp_lostpassword_url(); ?>" class="forgot"><?php esc_html_e( 'Forgot my Password', 'crumina' ); ?></a>
             </div>
 
             <button type="submit" class="btn btn-lg btn-primary full-width"><?php esc_html_e( 'Login', 'crumina' ); ?></button>
