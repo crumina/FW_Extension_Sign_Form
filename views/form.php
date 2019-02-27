@@ -20,9 +20,17 @@ if ( function_exists( 'bp_current_component' ) ) {
         $can_register = 0;
     }
 }
+
+$classes   = array( 'registration-login-form', 'mb-0' );
+$classes[] = $ext->get_config( 'selectors/formContainer' );
+$classes[] = "selected-forms-{$forms}";
+
+if ( $forms !== 'both' ) {
+    $classes[] = 'selected-forms-single';
+}
 ?>
 
-<div id="<?php echo esc_attr( $ext->get_config( 'selectors/formContainer' ) ); ?>" class="registration-login-form mb-0 selected-forms-<?php echo esc_attr( $forms ); ?>">
+<div class="<?php echo implode( ' ', $classes ); ?>">
     <!-- Nav tabs -->
     <?php if ( $can_register && $forms === 'both' ) { ?>
         <ul class="nav nav-tabs" role="tablist">
