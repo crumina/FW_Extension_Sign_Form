@@ -6,10 +6,11 @@
  * @var string $forms
  * @var string $login_descr
  */
-
+$ext = fw_ext( 'sign-form' );
 ?>
 <div class="title h6"><?php esc_html_e( 'Register to', 'crumina' ); ?> <?php echo get_bloginfo( 'name' ); ?></div>
-<form name="registerform" action="<?php echo esc_url( site_url( 'wp-login.php?action=register&type=internal', 'login_post' ) ); ?>" method="post" class="content">
+<form data-handler="<?php echo esc_attr( $ext->get_config( 'actions/signup' ) ); ?>" name="registerform" class="<?php echo esc_attr( $ext->get_config( 'selectors/formRegister' ) ); ?> content" action="<?php echo esc_url( site_url( 'wp-login.php?action=register&type=internal', 'login_post' ) ); ?>" method="post">
+    <input type="hidden" value="<?php echo wp_create_nonce('crumina-sign-form'); ?>" name="_ajax_nonce" />
     <?php do_action( 'logy_before_login_fields' ); ?>
     <div class="row">
         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
