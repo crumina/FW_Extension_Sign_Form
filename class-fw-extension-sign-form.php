@@ -75,6 +75,29 @@ class FW_Extension_Sign_Form extends FW_Extension {
         return fw_render_view( $full_path, $view_variables, $return );
     }
 
+    public static function signIn() {
+        $errors = array();
+
+        check_ajax_referer( 'crumina-sign-form' );
+        
+        $creds = array();
+$creds['user_login'] = 'Leonid';
+$creds['user_password'] = 'password';
+$creds['remember'] = true;
+
+$user = wp_signon( $creds, false );
+
+        if ( !empty( $errors ) ) {
+            wp_send_json_error( array(
+                'errors' => $errors,
+            ) );
+        }
+        
+        
+    }
+    
+    public static function signUp() {}
+
     public static function kc_mapping() {
         $builderComponent = fw_ext( 'sign-form' )->get_config( 'builderComponent' );
 

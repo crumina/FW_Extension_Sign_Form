@@ -1,3 +1,9 @@
+.crumina-sign-form {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0; }
+  .crumina-sign-form.visible {
+    opacity: 1; }
+
 .password-eye-wrap {
   position: relative; }
   .password-eye-wrap .password-eye {
