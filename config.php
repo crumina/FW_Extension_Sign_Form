@@ -10,8 +10,8 @@ $cfg[ 'builderComponent' ] = 'sign-form';
 $cfg[ 'registerLinkSC' ]   = 'register-link';
 
 $cfg[ 'actions' ] = array(
-    'signin' => 'crumina-signin-form',
-    'signup' => 'crumina-signup-form'
+    'signIn' => 'crumina-signin-form',
+    'signUp' => 'crumina-signup-form'
 );
 
 $cfg[ 'selectors' ] = array(

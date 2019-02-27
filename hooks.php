@@ -1,10 +1,12 @@
 <?php
 $ext              = fw_ext( 'sign-form' );
 $builderComponent = $ext->get_config( 'builderComponent' );
-$actionName       = $ext->get_config( 'actions/sign' );
+$actions          = $ext->get_config( 'actions' );
 
-add_action( "wp_ajax_{$actionName}", 'FW_Extension_Sign_Form::sign' );
-add_action( "wp_ajax_nopriv_{$actionName}", 'FW_Extension_Sign_Form::sign' );
+foreach ( $actions as $key => $action ) {
+    add_action( "wp_ajax_{$action}", "FW_Extension_Sign_Form::{$key}" );
+    add_action( "wp_ajax_nopriv_{$action}", "FW_Extension_Sign_Form::{$key}" );
+}
 
 add_filter( "vc_before_init", 'FW_Extension_Sign_Form::vc_mapping' );
 

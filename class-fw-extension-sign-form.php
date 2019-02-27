@@ -76,27 +76,49 @@ class FW_Extension_Sign_Form extends FW_Extension {
     }
 
     public static function signIn() {
+        check_ajax_referer( 'crumina-sign-form' );
+
         $errors = array();
 
-        check_ajax_referer( 'crumina-sign-form' );
-        
-        $creds = array();
-$creds['user_login'] = 'Leonid';
-$creds['user_password'] = 'password';
-$creds['remember'] = true;
+        $log        = filter_input( INPUT_POST, 'log' );
+        $pwd        = filter_input( INPUT_POST, 'pwd' );
+        $rememberme = filter_input( INPUT_POST, 'rememberme' );
+        $redirect_to = filter_input( INPUT_POST, 'redirect_to', FILTER_VALIDATE_URL );
 
-$user = wp_signon( $creds, false );
+        if ( !$log ) {
+            $errors[ 'log' ] = esc_html__( 'Login field is required', 'crumina' );
+        }
+
+        if ( !$pwd ) {
+            $errors[ 'pwd' ] = esc_html__( 'Password field is required', 'crumina' );
+        }
 
         if ( !empty( $errors ) ) {
             wp_send_json_error( array(
                 'errors' => $errors,
             ) );
         }
+
+        $user = wp_signon( array(
+            'user_login'    => $log,
+            'user_password' => $pwd,
+            'remember'      => $rememberme,
+                ) );
+
+        if ( is_wp_error( $user ) ) {
+             wp_send_json_error( array(
+                'message' => $user->get_error_message(),
+            ) );
+        }
         
+        wp_send_json_success( array(
+            'redirect_to' => $redirect_to
+        ) );
+    }
+
+    public static function signUp() {
         
     }
-    
-    public static function signUp() {}
 
     public static function kc_mapping() {
         $builderComponent = fw_ext( 'sign-form' )->get_config( 'builderComponent' );

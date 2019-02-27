@@ -67,6 +67,7 @@ var cruminaSignForm = {
         },
 
         sign: function ($form) {
+            var _this = this;
             var handler = $form.data('handler');
 
             if (!handler) {
@@ -74,7 +75,7 @@ var cruminaSignForm = {
             }
 
             var prepared = {
-                action: signFormConfig.actions.sign
+                action: handler
             };
 
             var data = $form.serializeArray();
@@ -93,14 +94,27 @@ var cruminaSignForm = {
                     jQuery(document.body).removeClass('loading');
                 },
                 success: function (response) {
-                    if (!response.success) {
 
+                    if (response.success) {
 
+                        if (response.data.redirect_to) {
+                            location.replace(response.data.redirect_to);
+                            return;
+                        }
 
+                        location.reload();
                         return;
                     }
 
-                    location.reload();
+                    if (response.data.message) {
+                        alert(response.data.message);
+                        return;
+                    }
+
+                    if (response.data.errors) {
+                        _this.renderFormErrors($form, response.data.errors);
+                    }
+
                 },
                 error: function (jqXHR, textStatus) {
                     alert(textStatus);
@@ -109,8 +123,15 @@ var cruminaSignForm = {
                     jQuery(document.body).removeClass('loading');
                 }
             });
-        }
+        },
 
+        renderFormErrors: function ($form, errors) {
+            for (var key in errors) {
+                var $field = jQuery('[name="' + key + '"]', $form);
+                var $error = 
+                $field.addClass('is-invalid');
+            }
+        }
     }
 
 
