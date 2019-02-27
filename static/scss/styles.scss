@@ -7,7 +7,8 @@
         color: #888da8;
         position: absolute;
         right: 15px;
-        top: 19px;
+        top: 50%;
+        transform: translate(0, -50%);
 
         &:hover {
             color: darken(#888da8, 10%);
