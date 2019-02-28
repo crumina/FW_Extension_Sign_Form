@@ -65,6 +65,13 @@ var cruminaSignForm = {
                 });
             });
 
+            jQuery('input', this.$forms).on('change', function () {
+                var $self = jQuery(this);
+                
+                $self.siblings('.invalid-feedback').remove();
+                $self.removeClass('is-invalid');
+            });
+
         },
 
         sign: function ($form) {

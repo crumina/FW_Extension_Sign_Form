@@ -153,7 +153,7 @@ class FW_Extension_Sign_Form extends FW_Extension {
                 'icon'     => $ext->locate_URI( '/static/img/builder-ico.svg' ),
                 'params'   => array(
                     array(
-                        'heading'    => esc_html__( 'Redirect', 'crumina' ),
+                        'heading'    => esc_html__( 'Display', 'crumina' ),
                         'param_name' => 'forms',
                         'type'       => 'dropdown',
                         'value'      => array(

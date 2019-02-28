@@ -10,12 +10,12 @@ $ext = fw_ext( 'sign-form' );
 ?>
 <div class="title h6"><?php esc_html_e( 'Register to', 'crumina' ); ?> <?php echo get_bloginfo( 'name' ); ?></div>
 <form data-handler="<?php echo esc_attr( $ext->get_config( 'actions/signUp' ) ); ?>" name="registerform" class="<?php echo esc_attr( $ext->get_config( 'selectors/formRegister' ) ); ?> content" action="<?php echo esc_url( site_url( 'wp-login.php?action=register&type=internal', 'login_post' ) ); ?>" method="post">
-    <input type="hidden" value="<?php echo wp_create_nonce('crumina-sign-form'); ?>" name="_ajax_nonce" />
-    
+    <input type="hidden" value="<?php echo wp_create_nonce( 'crumina-sign-form' ); ?>" name="_ajax_nonce" />
+
     <?php do_action( 'logy_before_login_fields' ); ?>
-    
+
     <ul class="crumina-sign-form-messages"></ul>
-    
+
     <div class="row">
         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="form-group label-floating is-empty">
@@ -38,6 +38,18 @@ $ext = fw_ext( 'sign-form' );
                 <label class="control-label"><?php esc_html_e( 'Your Email', 'crumina' ); ?></label>
                 <input type="email" name="user_email" class="form-control" size="25" />
             </div>
+
+            <div class="gdpr">
+                <div class="checkbox">
+                    <label>
+                        <input name="gdpr" type="checkbox">
+                        <?php esc_html_e( 'Accept Privacy Policy', 'crumina' ); ?>
+                    </label>
+                </div>
+
+                <p><?php esc_html_e( 'I allow this website to collect and store submitted data.', 'crumina' ); ?></p>
+            </div>
+
             <button type="submit" class="btn btn-purple btn-lg full-width"><span><?php esc_html_e( 'Complete Registration!', 'crumina' ); ?></span></button>
         </div>
     </div>
