@@ -45,6 +45,7 @@ var cruminaSignForm = {
     },
 
     signAjax: {
+        busy: false,
         $forms: null,
 
         init: function () {
@@ -68,9 +69,11 @@ var cruminaSignForm = {
 
         sign: function ($form) {
             var _this = this;
-            var handler = $form.data('handler');
 
-            if (!handler) {
+            var handler = $form.data('handler');
+            var $messages = $form.find('.crumina-sign-form-messages');
+
+            if (!handler || this.busy) {
                 return;
             }
 
@@ -91,7 +94,13 @@ var cruminaSignForm = {
                 data: prepared,
 
                 beforeSend: function () {
-                    jQuery(document.body).removeClass('loading');
+                    _this.busy = true;
+                    $form.addClass('loading');
+
+                    //Clear old errors
+                    $messages.empty();
+                    $form.find('.invalid-feedback').remove();
+                    $form.find('.is-invalid').removeClass('is-invalid');
                 },
                 success: function (response) {
 
@@ -107,7 +116,9 @@ var cruminaSignForm = {
                     }
 
                     if (response.data.message) {
-                        alert(response.data.message);
+                        var $msg = jQuery('<li class="error" />');
+                        $msg.html(response.data.message);
+                        $msg.appendTo($messages);
                         return;
                     }
 
@@ -120,15 +131,21 @@ var cruminaSignForm = {
                     alert(textStatus);
                 },
                 complete: function () {
-                    jQuery(document.body).removeClass('loading');
+                    _this.busy = false;
+                    $form.removeClass('loading');
                 }
             });
         },
 
         renderFormErrors: function ($form, errors) {
+            $form.find('.invalid-feedback').remove();
+            $form.find('.is-invalid').removeClass('is-invalid');
+
             for (var key in errors) {
                 var $field = jQuery('[name="' + key + '"]', $form);
-                var $error = 
+                var $error = jQuery('<div class="invalid-feedback" />').insertAfter($field);
+
+                $error.text(errors[key]);
                 $field.addClass('is-invalid');
             }
         }

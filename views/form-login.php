@@ -15,11 +15,10 @@ $ext          = fw_ext( 'sign-form' );
     <input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>"/>
 
     <?php echo apply_filters( 'login_form_top', '' ); ?>
-    <div class="row">
-        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
-            <?php do_action( 'logy_before_login_fields' ); ?>
-        </div>
-    </div>
+    <?php do_action( 'logy_before_login_fields' ); ?>
+    
+    <ul class="crumina-sign-form-messages"></ul>
+    
     <div class="row">
         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="form-group label-floating">
@@ -44,7 +43,7 @@ $ext          = fw_ext( 'sign-form' );
                 <a href="<?php echo wp_lostpassword_url(); ?>" class="forgot"><?php esc_html_e( 'Forgot my Password', 'crumina' ); ?></a>
             </div>
 
-            <button type="submit" class="btn btn-lg btn-primary full-width"><?php esc_html_e( 'Login', 'crumina' ); ?></button>
+            <button type="submit" class="btn btn-lg btn-primary full-width"><span><?php esc_html_e( 'Login', 'crumina' ); ?></span></button>
 
             <?php echo apply_filters( 'login_form_bottom', '' ); ?>
 
