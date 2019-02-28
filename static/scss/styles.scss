@@ -5,6 +5,27 @@
     &.visible {
         opacity: 1;
     }
+
+  .invalid-feedback {
+	position: absolute;
+	top: 100%;
+  }
+}
+
+.crumina-sign-form-messages {
+  padding-left: 0;
+  list-style: none;
+
+  li {
+	border-left: 4px solid;
+	padding: 8px 15px;
+	border-radius: 5px 0 0 5px;
+	background-color: #f6f6f6;
+
+	&.error {
+	  border-left-color: #ff5e3a;
+	}
+  }
 }
 
 .password-eye-wrap {
