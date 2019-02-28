@@ -10,6 +10,10 @@ $ext = fw_ext( 'sign-form' );
 ?>
 <div class="title h6"><?php esc_html_e( 'Register to', 'crumina' ); ?> <?php echo get_bloginfo( 'name' ); ?></div>
 <form data-handler="<?php echo esc_attr( $ext->get_config( 'actions/signUp' ) ); ?>" name="registerform" class="<?php echo esc_attr( $ext->get_config( 'selectors/formRegister' ) ); ?> content" action="<?php echo esc_url( site_url( 'wp-login.php?action=register&type=internal', 'login_post' ) ); ?>" method="post">
+
+    <input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>"/>
+    <input type="hidden" name="redirect" value="<?php echo esc_attr( $redirect ); ?>"/>
+    
     <input type="hidden" value="<?php echo wp_create_nonce( 'crumina-sign-form' ); ?>" name="_ajax_nonce" />
 
     <?php do_action( 'logy_before_login_fields' ); ?>

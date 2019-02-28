@@ -80,17 +80,18 @@ class FW_Extension_Sign_Form extends FW_Extension {
 
         $errors = array();
 
-        $log        = filter_input( INPUT_POST, 'log' );
-        $pwd        = filter_input( INPUT_POST, 'pwd' );
-        $rememberme = filter_input( INPUT_POST, 'rememberme' );
+        $log         = filter_input( INPUT_POST, 'log' );
+        $pwd         = filter_input( INPUT_POST, 'pwd' );
+        $rememberme  = filter_input( INPUT_POST, 'rememberme' );
+        $redirect    = filter_input( INPUT_POST, 'redirect' );
         $redirect_to = filter_input( INPUT_POST, 'redirect_to', FILTER_VALIDATE_URL );
 
         if ( !$log ) {
-            $errors[ 'log' ] = esc_html__( 'Login field is required', 'crumina' );
+            $errors[ 'log' ] = esc_html__( 'Login is required', 'crumina' );
         }
 
         if ( !$pwd ) {
-            $errors[ 'pwd' ] = esc_html__( 'Password field is required', 'crumina' );
+            $errors[ 'pwd' ] = esc_html__( 'Password is required', 'crumina' );
         }
 
         if ( !empty( $errors ) ) {
@@ -106,18 +107,73 @@ class FW_Extension_Sign_Form extends FW_Extension {
                 ) );
 
         if ( is_wp_error( $user ) ) {
-             wp_send_json_error( array(
+            wp_send_json_error( array(
                 'message' => $user->get_error_message(),
             ) );
         }
-        
+
+        if ( $redirect === 'profile' && function_exists( 'bp_core_get_user_domain' ) ) {
+            $redirect_to = bp_core_get_user_domain( $user->ID );
+        }
+
         wp_send_json_success( array(
-            'redirect_to' => $redirect_to
+            'redirect_to' => $redirect_to ? $redirect_to : ''
         ) );
     }
 
     public static function signUp() {
-        
+        check_ajax_referer( 'crumina-sign-form' );
+
+        $errors = array();
+
+        $user_login  = filter_input( INPUT_POST, 'user_login' );
+        $user_email  = filter_input( INPUT_POST, 'user_email', FILTER_VALIDATE_EMAIL );
+        $first_name  = filter_input( INPUT_POST, 'first_name' );
+        $last_name   = filter_input( INPUT_POST, 'last_name' );
+        $gdpr        = filter_input( INPUT_POST, 'gdpr' );
+        $redirect_to = filter_input( INPUT_POST, 'redirect_to', FILTER_VALIDATE_URL );
+
+        if ( !$user_login ) {
+            $errors[ 'user_login' ] = esc_html__( 'Login is required', 'crumina' );
+        }
+
+        if ( !$user_email ) {
+            $errors[ 'user_email' ] = esc_html__( 'Email is required', 'crumina' );
+        }
+
+        if ( !$first_name ) {
+            $errors[ 'first_name' ] = esc_html__( 'First name is required', 'crumina' );
+        }
+
+        if ( !$last_name ) {
+            $errors[ 'last_name' ] = esc_html__( 'Last name is required', 'crumina' );
+        }
+
+        if ( !$gdpr ) {
+            $errors[ 'gdpr' ] = esc_html__( 'GDPR is required', 'crumina' );
+        }
+
+        if ( !empty( $errors ) ) {
+            wp_send_json_error( array(
+                'errors' => $errors,
+            ) );
+        }
+
+        $user = register_new_user($user_login, $user_email);
+
+        if ( is_wp_error( $user ) ) {
+            wp_send_json_error( array(
+                'message' => $user->get_error_message(),
+            ) );
+        }
+
+        if ( $redirect === 'profile' && function_exists( 'bp_core_get_user_domain' ) ) {
+            $redirect_to = bp_core_get_user_domain( $user->ID );
+        }
+
+        wp_send_json_success( array(
+            'redirect_to' => $redirect_to ? $redirect_to : ''
+        ) );
     }
 
     public static function kc_mapping() {

@@ -12,7 +12,9 @@ $ext          = fw_ext( 'sign-form' );
 <div class="title h6"><?php esc_html_e( 'Login to your Account', 'crumina' ); ?></div>
 <form data-handler="<?php echo esc_attr( $ext->get_config( 'actions/signIn' ) ); ?>" class="<?php echo esc_attr( $ext->get_config( 'selectors/formLogin' ) ); ?> content" method="POST" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>">
     <input type="hidden" value="<?php echo wp_create_nonce( 'crumina-sign-form' ); ?>" name="_ajax_nonce" />
+    
     <input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>"/>
+    <input type="hidden" name="redirect" value="<?php echo esc_attr( $redirect ); ?>"/>
 
     <?php echo apply_filters( 'login_form_top', '' ); ?>
     <?php do_action( 'logy_before_login_fields' ); ?>

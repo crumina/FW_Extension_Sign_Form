@@ -16,8 +16,9 @@ add_filter( 'registration_errors', '_filter_fw_ext_sign_form_reg_errors', 10, 3 
 
 function _filter_fw_ext_sign_form_reg_errors( $errors, $sanitized_user_login, $user_email ) {
 
-    $first_name = trim( filter_input( INPUT_POST, 'first_name', FILTER_SANITIZE_STRING ) );
-    $last_name  = trim( filter_input( INPUT_POST, 'last_name', FILTER_SANITIZE_STRING ) );
+    $gdpr       = filter_input( INPUT_POST, 'gdpr' );
+    $first_name = trim( filter_input( INPUT_POST, 'first_name' ) );
+    $last_name  = trim( filter_input( INPUT_POST, 'last_name' ) );
 
     if ( empty( $first_name ) ) {
         $errors->add( 'first_name_error', sprintf( '<strong>%s</strong>: %s', esc_html__( 'ERROR', 'crumina' ), esc_html__( 'Please enter a first name.', 'crumina' ) ) );
@@ -25,6 +26,10 @@ function _filter_fw_ext_sign_form_reg_errors( $errors, $sanitized_user_login, $u
 
     if ( empty( $last_name ) ) {
         $errors->add( 'last_name_error', sprintf( '<strong>%s</strong>: %s', esc_html__( 'ERROR', 'crumina' ), esc_html__( 'Please enter a last name.', 'crumina' ) ) );
+    }
+
+    if ( $gdpr !== 'on' ) {
+        $errors->add( 'gdpr_error', sprintf( '<strong>%s</strong>: %s', esc_html__( 'ERROR', 'crumina' ), esc_html__( 'GDPR is required.', 'crumina' ) ) );
     }
 
     return $errors;
@@ -53,16 +58,24 @@ function _action_fw_ext_sign_form_add_type_field() {
 add_action( 'register_form', '_action_fw_ext_sign_form_add_reg_fields' );
 
 function _action_fw_ext_sign_form_add_reg_fields() {
-    $first_name = filter_input( INPUT_POST, 'first_name', FILTER_SANITIZE_STRING );
-    $last_name  = filter_input( INPUT_POST, 'last_name', FILTER_SANITIZE_STRING );
+    $gdpr       = filter_input( INPUT_POST, 'gdpr' );
+    $first_name = filter_input( INPUT_POST, 'first_name' );
+    $last_name  = filter_input( INPUT_POST, 'last_name' );
     ?>
     <p>
-        <label for="first_name"><?php esc_html_e( 'First Name', 'olympus' ) ?><br />
+        <label for="first_name"><?php esc_html_e( 'First Name', 'crumina' ) ?><br />
             <input type="text" name="first_name" class="input" value="<?php echo esc_attr( $first_name ); ?>" size="25" /></label>
     </p>
     <p>
-        <label for="last_name"><?php esc_html_e( 'Last Name', 'olympus' ) ?><br />
+        <label for="last_name"><?php esc_html_e( 'Last Name', 'crumina' ) ?><br />
             <input type="text" name="last_name" class="input" value="<?php echo esc_attr( $last_name ); ?>" size="25" /></label>
+    </p>
+    <p>
+        <label for="gdpr">
+            <input type="checkbox" name="gdpr" <?php echo ($gdpr === 'on') ? 'checked' : ''; ?> />
+            <?php esc_html_e( 'I allow this website to collect and store submitted data.', 'crumina' ); ?>
+        </label>
+        <br /><br />
     </p>
     <?php
 }
@@ -70,13 +83,17 @@ function _action_fw_ext_sign_form_add_reg_fields() {
 add_action( 'user_register', '_action_fw_ext_sign_form_save_reg_fields' );
 
 function _action_fw_ext_sign_form_save_reg_fields( $user_id ) {
-    $first_name = filter_input( INPUT_POST, 'first_name', FILTER_SANITIZE_STRING );
-    $last_name  = filter_input( INPUT_POST, 'last_name', FILTER_SANITIZE_STRING );
+    $first_name = filter_input( INPUT_POST, 'first_name' );
+    $last_name  = filter_input( INPUT_POST, 'last_name' );
+    $gdpr       = filter_input( INPUT_POST, 'gdpr' );
 
     if ( !empty( $first_name ) ) {
         update_user_meta( $user_id, 'first_name', $first_name );
     }
     if ( !empty( $last_name ) ) {
         update_user_meta( $user_id, 'last_name', $last_name );
+    }
+    if ( $gdpr === 'on' ) {
+        update_user_meta( $user_id, 'gdpr', $gdpr );
     }
 }
