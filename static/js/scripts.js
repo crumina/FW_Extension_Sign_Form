@@ -67,9 +67,10 @@ var cruminaSignForm = {
 
             jQuery('input', this.$forms).on('change', function () {
                 var $self = jQuery(this);
-                
+
                 $self.siblings('.invalid-feedback').remove();
                 $self.removeClass('is-invalid');
+                $self.closest('.has-error').removeClass('has-error');
             });
 
         },
@@ -107,11 +108,13 @@ var cruminaSignForm = {
                     //Clear old errors
                     $messages.empty();
                     $form.find('.invalid-feedback').remove();
-                    $form.find('.is-invalid').removeClass('is-invalid');
+                    $form.find('.is-invalid, .has-error').removeClass('is-invalid has-error');
                 },
                 success: function (response) {
 
                     if (response.success) {
+                        //Prevent double form submit during redirect
+                        _this.busy = true;
 
                         if (response.data.redirect_to) {
                             location.replace(response.data.redirect_to);
@@ -146,14 +149,16 @@ var cruminaSignForm = {
 
         renderFormErrors: function ($form, errors) {
             $form.find('.invalid-feedback').remove();
-            $form.find('.is-invalid').removeClass('is-invalid');
+            $form.find('.is-invalid, .has-error').removeClass('is-invalid has-error');
 
             for (var key in errors) {
                 var $field = jQuery('[name="' + key + '"]', $form);
+                var $group = $field.closest('.form-group');
                 var $error = jQuery('<div class="invalid-feedback" />').appendTo($field.parent());
 
                 $error.text(errors[key]);
                 $field.addClass('is-invalid');
+                $group.addClass('has-error');
             }
         }
     }
