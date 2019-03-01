@@ -10,6 +10,34 @@
 	position: absolute;
 	top: 100%;
   }
+
+  .icon-loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+	opacity: 0;
+	visibility: hidden;
+	transition: all .3s ease;
+  }
+
+  &.loading {
+
+	.btn {
+		span {
+		  display: none;
+		  opacity: 0;
+		  visibility: hidden;
+		}
+	}
+
+	.icon-loader {
+	  display: block;
+	  opacity: 1;
+	  visibility: visible;
+	}
+  }
 }
 
 .crumina-sign-form-messages {

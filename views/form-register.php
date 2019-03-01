@@ -58,7 +58,25 @@ $classes[] = $ext->get_config( 'selectors/form' );
                 <p><?php esc_html_e( 'I allow this website to collect and store submitted data.', 'crumina' ); ?></p>
             </div>
 
-            <button type="submit" class="btn btn-purple btn-lg full-width"><span><?php esc_html_e( 'Complete Registration!', 'crumina' ); ?></span></button>
+            <button type="submit" class="btn btn-purple btn-lg full-width">
+				<span><?php esc_html_e( 'Complete Registration!', 'crumina' ); ?></span>
+				<button type="submit" class="btn btn-lg btn-primary full-width">
+					<span><?php esc_html_e( 'Login', 'crumina' ); ?></span>
+					<svg class="icon-loader" width="120" height="30" fill="#fff">
+						<circle cx="15" cy="15" r="15">
+							<animate attributeName="r" begin="0s" calcMode="linear" dur="0.8s" from="15" repeatCount="indefinite" to="15" values="15;9;15"/>
+							<animate attributeName="fill-opacity" begin="0s" calcMode="linear" dur="0.8s" from="1" repeatCount="indefinite" to="1" values="1;.5;1"/>
+						</circle>
+						<circle cx="60" cy="15" r="9" fill-opacity=".3">
+							<animate attributeName="r" begin="0s" calcMode="linear" dur="0.8s" from="9" repeatCount="indefinite" to="9" values="9;15;9"/>
+							<animate attributeName="fill-opacity" begin="0s" calcMode="linear" dur="0.8s" from=".5" repeatCount="indefinite" to=".5" values=".5;1;.5"/>
+						</circle>
+						<circle cx="105" cy="15" r="15">
+							<animate attributeName="r" begin="0s" calcMode="linear" dur="0.8s" from="15" repeatCount="indefinite" to="15" values="15;9;15"/>
+							<animate attributeName="fill-opacity" begin="0s" calcMode="linear" dur="0.8s" from="1" repeatCount="indefinite" to="1" values="1;.5;1"/>
+						</circle>
+					</svg>
+			</button>
         </div>
     </div>
 </form>
