@@ -19,9 +19,9 @@
 	left: 50%;
 	width: 50px;
 	height: 50px;
-	background-image: url("./img/circle.svg");
+	background-image: url("./../img/circles.svg");
 	background-repeat: no-repeat;
-	background-size: 50px;
+	background-size: 30px;
 	background-position: 50% 50%;
 	transform: translate(-50%, -50%);
 	display: none;
@@ -40,13 +40,13 @@
 		display: none;
 		opacity: 0;
 		visibility: hidden;
-	  }
-	}
 
-	.icon-loader {
-	  display: block;
-	  opacity: 1;
-	  visibility: visible;
+		&.icon-loader {
+		  display: block;
+		  opacity: 1;
+		  visibility: visible;
+		}
+	  }
 	}
   }
 }
@@ -95,5 +95,11 @@
 
   p {
 	margin-bottom: 15px;
+  }
+
+  .is-invalid ~ .invalid-feedback {
+	display: block;
+	position: relative;
+	top: auto;
   }
 }

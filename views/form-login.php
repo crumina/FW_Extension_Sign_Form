@@ -51,6 +51,7 @@ $classes[] = $ext->get_config( 'selectors/form' );
 
             <button type="submit" class="btn btn-lg btn-primary full-width">
 				<span><?php esc_html_e( 'Login', 'crumina' ); ?></span>
+				<span class="icon-loader"></span>
 			</button>
 
             <?php echo apply_filters( 'login_form_bottom', '' ); ?>
