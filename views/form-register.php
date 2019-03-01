@@ -13,7 +13,7 @@ $ext = fw_ext( 'sign-form' );
 
     <input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>"/>
     <input type="hidden" name="redirect" value="<?php echo esc_attr( $redirect ); ?>"/>
-    
+
     <input type="hidden" value="<?php echo wp_create_nonce( 'crumina-sign-form' ); ?>" name="_ajax_nonce" />
 
     <?php do_action( 'logy_before_login_fields' ); ?>
@@ -47,7 +47,7 @@ $ext = fw_ext( 'sign-form' );
                 <div class="checkbox">
                     <label>
                         <input name="gdpr" type="checkbox">
-                        <?php esc_html_e( 'Accept Privacy Policy', 'crumina' ); ?>
+                        <?php echo $ext::getPrivacyLink(); ?>
                     </label>
                 </div>
 

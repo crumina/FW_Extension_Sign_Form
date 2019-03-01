@@ -159,21 +159,37 @@ class FW_Extension_Sign_Form extends FW_Extension {
             ) );
         }
 
-        $user = register_new_user($user_login, $user_email);
+        $user_id = register_new_user( $user_login, $user_email );
 
-        if ( is_wp_error( $user ) ) {
+        if ( is_wp_error( $user_id ) ) {
             wp_send_json_error( array(
                 'message' => $user->get_error_message(),
             ) );
         }
 
+        // Authorize user
+        wp_set_auth_cookie( $user_id, true );
+
         if ( $redirect === 'profile' && function_exists( 'bp_core_get_user_domain' ) ) {
-            $redirect_to = bp_core_get_user_domain( $user->ID );
+            $redirect_to = bp_core_get_user_domain( $user_id );
         }
 
         wp_send_json_success( array(
             'redirect_to' => $redirect_to ? $redirect_to : ''
         ) );
+    }
+
+    public static function getPrivacyLink() {
+        $page = get_option( 'wp_page_for_privacy_policy' );
+
+        if ( $page ) {
+            $status = get_post_status( $page );
+            if ( $status === 'publish' ) {
+                return sprintf( '%s <a href="%s" target="_blank">%s</a>', esc_html__( 'Accept', 'crumina' ), get_permalink( $page ), esc_html__( 'Privacy Policy', 'crumina' ) );
+            }
+        }
+
+        return esc_html__( 'Accept Privacy Policy', 'crumina' );
     }
 
     public static function kc_mapping() {

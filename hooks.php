@@ -58,6 +58,7 @@ function _action_fw_ext_sign_form_add_type_field() {
 add_action( 'register_form', '_action_fw_ext_sign_form_add_reg_fields' );
 
 function _action_fw_ext_sign_form_add_reg_fields() {
+    $ext        = fw_ext( 'sign-form' );
     $gdpr       = filter_input( INPUT_POST, 'gdpr' );
     $first_name = filter_input( INPUT_POST, 'first_name' );
     $last_name  = filter_input( INPUT_POST, 'last_name' );
@@ -73,7 +74,7 @@ function _action_fw_ext_sign_form_add_reg_fields() {
     <p>
         <label for="gdpr">
             <input type="checkbox" name="gdpr" <?php echo ($gdpr === 'on') ? 'checked' : ''; ?> />
-            <?php esc_html_e( 'I allow this website to collect and store submitted data.', 'crumina' ); ?>
+            <?php echo $ext::getPrivacyLink(); ?>
         </label>
         <br /><br />
     </p>
