@@ -70,7 +70,7 @@ var cruminaSignForm = {
 
                 $self.siblings('.invalid-feedback').remove();
                 $self.removeClass('is-invalid');
-                $self.closest('.has-error').removeClass('has-error');
+                $self.closest('.has-errors').removeClass('has-errors');
             });
 
         },
@@ -108,7 +108,7 @@ var cruminaSignForm = {
                     //Clear old errors
                     $messages.empty();
                     $form.find('.invalid-feedback').remove();
-                    $form.find('.is-invalid, .has-error').removeClass('is-invalid has-error');
+                    $form.find('.is-invalid, .has-errors').removeClass('is-invalid has-errors');
                 },
                 success: function (response) {
 
@@ -149,7 +149,7 @@ var cruminaSignForm = {
 
         renderFormErrors: function ($form, errors) {
             $form.find('.invalid-feedback').remove();
-            $form.find('.is-invalid, .has-error').removeClass('is-invalid has-error');
+            $form.find('.is-invalid, .has-errors').removeClass('is-invalid has-errors');
 
             for (var key in errors) {
                 var $field = jQuery('[name="' + key + '"]', $form);
@@ -158,7 +158,7 @@ var cruminaSignForm = {
 
                 $error.text(errors[key]);
                 $field.addClass('is-invalid');
-                $group.addClass('has-error');
+                $group.addClass('has-errors');
             }
         }
     }
