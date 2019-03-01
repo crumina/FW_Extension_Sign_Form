@@ -44,7 +44,7 @@ $options = array(
                     )
                 )
             ),
-            'login_descr'           => array(
+            'sign-form-login-descr'           => array(
                 'label' => esc_html__( 'Login form description', 'crumina' ),
                 'type'  => 'textarea',
             )

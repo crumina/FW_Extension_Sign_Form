@@ -47,7 +47,7 @@ $classes[] = $ext->get_config( 'selectors/form' );
 				<input type="email" name="user_email" class="form-control" size="25" />
 			</div>
 
-			<div class="gdpr">
+			<div class="gdpr form-group">
 				<div class="checkbox">
 					<label>
 						<input name="gdpr" type="checkbox">
