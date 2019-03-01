@@ -35,6 +35,15 @@ function _filter_fw_ext_sign_form_reg_errors( $errors, $sanitized_user_login, $u
     return $errors;
 }
 
+//Add options to settings page
+add_filter( 'fw_settings_options', '_filter_fw_ext_sign_form_settings', 999, 1 );
+
+function _filter_fw_ext_sign_form_settings( $options ) {
+    $ext = fw_ext( 'sign-form' );
+
+    return array_merge( $options, $ext->get_options( 'settings' ) );
+}
+
 add_action( 'after_setup_theme', '_action_fw_ext_sign_form_wpsignup_redirect', 999 );
 
 function _action_fw_ext_sign_form_wpsignup_redirect() {

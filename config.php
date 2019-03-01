@@ -16,7 +16,8 @@ $cfg[ 'actions' ] = array(
 
 $cfg[ 'selectors' ] = array(
     //It will be classes
-    'formContainer' => 'crumina-sign-form',
+    'form' => 'crumina-sign-form',
+    'formContainer' => 'crumina-sign-form-container',
     'formRegister' => 'crumina-sign-form-register',
     'formLogin'    => 'crumina-sign-form-login',
 );
