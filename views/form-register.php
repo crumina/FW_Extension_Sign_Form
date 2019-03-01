@@ -12,7 +12,7 @@ $classes   = array( 'content' );
 $classes[] = $ext->get_config( 'selectors/formRegister' );
 $classes[] = $ext->get_config( 'selectors/form' );
 ?>
-<div class="title h6"><?php esc_html_e( 'Register to', 'crumina' ); ?><?php echo get_bloginfo( 'name' ); ?></div>
+<div class="title h6"><?php esc_html_e( 'Register to', 'crumina' ); ?>&nbsp;<?php echo get_bloginfo( 'name' ); ?></div>
 <form data-handler="<?php echo esc_attr( $ext->get_config( 'actions/signUp' ) ); ?>" name="registerform" class="<?php echo implode( ' ', $classes ); ?>" action="<?php echo esc_url( site_url( 'wp-login.php?action=register&type=internal', 'login_post' ) ); ?>" method="post">
 
 	<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>" />

@@ -37,17 +37,19 @@ if ( $forms !== 'both' ) {
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#login-panel-<?php echo esc_attr( $rand ); ?>"
                    role="tab">
-                    <svg class="olymp-login-icon">
+                    <svg class="olymp-login-icon" data-toggle="tooltip" data-placement="top" data-original-title="Login">
                     <use xlink:href="<?php echo get_template_directory_uri(); ?>/images/icons.svg#olymp-login-icon"></use>
                     </svg>
+					<span class="icon-title">Login</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#register-panel-<?php echo esc_attr( $rand ); ?>"
                    role="tab">
-                    <svg class="olymp-register-icon">
+                    <svg class="olymp-register-icon" data-toggle="tooltip" data-placement="top" data-original-title="Registration">
                     <use xlink:href="<?php echo get_template_directory_uri(); ?>/images/icons.svg#olymp-register-icon"></use>
                     </svg>
+					<span class="icon-title">Registration</span>
                 </a>
             </li>
         </ul>
