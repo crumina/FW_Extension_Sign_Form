@@ -20,6 +20,10 @@
 	  display: none;
 	}
   }
+
+  .has-errors {
+	margin-bottom: 35px;
+  }
 }
 
 .crumina-sign-form {
@@ -42,7 +46,7 @@
 
   &.loading {
 	.btn {
-	  min-height: 45px;
+	  min-height: 55px;
 
 	  span {
 		display: none;
@@ -120,6 +124,16 @@
 
 	  .icon-title {
 		display: block;
+	  }
+	}
+  }
+}
+
+@media (max-width: 768px) {
+  .crumina-sign-form {
+	&.loading {
+	  .btn {
+		min-height: 45px;
 	  }
 	}
   }
