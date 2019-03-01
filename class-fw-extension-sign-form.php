@@ -150,7 +150,7 @@ class FW_Extension_Sign_Form extends FW_Extension {
         }
 
         if ( !$gdpr ) {
-            $errors[ 'gdpr' ] = esc_html__( 'GDPR is required', 'crumina' );
+            $errors[ 'gdpr' ] = esc_html__( 'Please, accept privacy policy', 'crumina' );
         }
 
         if ( !empty( $errors ) ) {
