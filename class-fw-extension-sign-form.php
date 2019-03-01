@@ -259,7 +259,7 @@ class FW_Extension_Sign_Form extends FW_Extension {
                         'heading'     => esc_html__( 'Login form description', 'crumina' ),
                         'param_name'  => 'login_descr',
                         'type'        => 'textarea',
-                        'description' => esc_html__( 'You can use [register_link text="" url=""] shortcode', 'crumina' ),
+                        'description' => sprintf( esc_html__( 'You can use [%s text="" url=""] shortcode', 'crumina' ), $ext->get_config( 'registerLinkSC' ) ),
                         'dependency'  => array(
                             'element' => 'forms',
                             'value'   => array( 'both', 'login' ),

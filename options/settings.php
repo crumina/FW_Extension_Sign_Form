@@ -4,7 +4,7 @@ if ( !defined( 'FW' ) ) {
     die( 'Forbidden' );
 }
 
-$ext = fw_ext( 'stunning-header' );
+$ext = fw_ext( 'sign-form' );
 
 $options = array(
     'sign-form' => array(
@@ -47,6 +47,7 @@ $options = array(
             'sign-form-login-descr'           => array(
                 'label' => esc_html__( 'Login form description', 'crumina' ),
                 'type'  => 'textarea',
+                'desc' => sprintf( esc_html__( 'You can use [%s text="" url=""] shortcode', 'crumina' ), $ext->get_config( 'registerLinkSC' ) ),
             )
         )
     )
