@@ -62,19 +62,21 @@ $classes[] = $ext->get_config( 'selectors/form' );
 				<span><?php esc_html_e( 'Complete Registration!', 'crumina' ); ?></span>
 				<button type="submit" class="btn btn-lg btn-primary full-width">
 					<span><?php esc_html_e( 'Login', 'crumina' ); ?></span>
-					<svg class="icon-loader" width="120" height="30" fill="#fff">
-						<circle cx="15" cy="15" r="15">
-							<animate attributeName="r" begin="0s" calcMode="linear" dur="0.8s" from="15" repeatCount="indefinite" to="15" values="15;9;15"/>
-							<animate attributeName="fill-opacity" begin="0s" calcMode="linear" dur="0.8s" from="1" repeatCount="indefinite" to="1" values="1;.5;1"/>
-						</circle>
-						<circle cx="60" cy="15" r="9" fill-opacity=".3">
-							<animate attributeName="r" begin="0s" calcMode="linear" dur="0.8s" from="9" repeatCount="indefinite" to="9" values="9;15;9"/>
-							<animate attributeName="fill-opacity" begin="0s" calcMode="linear" dur="0.8s" from=".5" repeatCount="indefinite" to=".5" values=".5;1;.5"/>
-						</circle>
-						<circle cx="105" cy="15" r="15">
-							<animate attributeName="r" begin="0s" calcMode="linear" dur="0.8s" from="15" repeatCount="indefinite" to="15" values="15;9;15"/>
-							<animate attributeName="fill-opacity" begin="0s" calcMode="linear" dur="0.8s" from="1" repeatCount="indefinite" to="1" values="1;.5;1"/>
-						</circle>
+					<svg class="icon-loader" stroke="#fff">
+						<g fill="none" fill-rule="evenodd" stroke-width="2" transform="translate(1 1)">
+							<circle cx="5" cy="50" r="5">
+								<animate attributeName="cy" begin="0s" calcMode="linear" dur="2.2s" repeatCount="indefinite" values="50;5;50;50"/>
+								<animate attributeName="cx" begin="0s" calcMode="linear" dur="2.2s" repeatCount="indefinite" values="5;27;49;5"/>
+							</circle>
+							<circle cx="27" cy="5" r="5">
+								<animate attributeName="cy" begin="0s" calcMode="linear" dur="2.2s" from="5" repeatCount="indefinite" to="5" values="5;50;50;5"/>
+								<animate attributeName="cx" begin="0s" calcMode="linear" dur="2.2s" from="27" repeatCount="indefinite" to="27" values="27;49;5;27"/>
+							</circle>
+							<circle cx="49" cy="50" r="5">
+								<animate attributeName="cy" begin="0s" calcMode="linear" dur="2.2s" repeatCount="indefinite" values="50;50;5;50"/>
+								<animate attributeName="cx" begin="0s" calcMode="linear" dur="2.2s" from="49" repeatCount="indefinite" to="49" values="49;5;27;49"/>
+							</circle>
+						</g>
 					</svg>
 			</button>
         </div>
