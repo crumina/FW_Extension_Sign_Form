@@ -150,7 +150,7 @@ var cruminaSignForm = {
 
             for (var key in errors) {
                 var $field = jQuery('[name="' + key + '"]', $form);
-                var $error = jQuery('<div class="invalid-feedback" />').insertAfter($field);
+                var $error = jQuery('<div class="invalid-feedback" />').appendTo($field.parent());
 
                 $error.text(errors[key]);
                 $field.addClass('is-invalid');
