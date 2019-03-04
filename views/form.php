@@ -57,7 +57,7 @@ if ( $forms !== 'both' ) {
 
     <div class="tab-content">
         <?php if ( ($forms === 'login' || $forms === 'both' ) ) { ?>
-            <div class="tab-pane" id="login-panel-<?php echo esc_attr( $rand ); ?>" role="tabpanel" data-mh="log-tab">
+            <div class="tab-pane" id="login-panel-<?php echo esc_attr( $rand ); ?>" role="tabpanel">
                 <?php
                 echo $ext->get_view( 'form-login', array(
                     'rand'        => $rand,
@@ -71,7 +71,7 @@ if ( $forms !== 'both' ) {
         <?php } ?>
 
         <?php if ( $can_register && ($forms === 'register' || $forms === 'both') ) { ?>
-            <div class="tab-pane" id="register-panel-<?php echo esc_attr( $rand ); ?>" role="tabpanel" data-mh="log-tab">
+            <div class="tab-pane" id="register-panel-<?php echo esc_attr( $rand ); ?>" role="tabpanel">
                 <?php
                 echo $ext->get_view( 'form-register', array(
                     'rand'        => $rand,
