@@ -20,12 +20,12 @@ class FW_Extension_Sign_Form extends FW_Extension {
             $atts = vc_map_get_attributes( $this->get_config( 'builderComponent' ), $atts );
         }
 
-        $atts = shortcode_atts( array(
-            'forms'       => 'both',
-            'redirect'    => 'current',
-            'redirect_to' => '',
-            'login_descr' => '',
-                ), $atts );
+        $atts = self::prepareAtts( shortcode_atts( array(
+                    'forms'       => 'both',
+                    'redirect'    => 'current',
+                    'redirect_to' => '',
+                    'login_descr' => '',
+                                ), $atts ) );
 
         $redirect_to = filter_var( $atts[ 'redirect_to' ], FILTER_VALIDATE_URL );
 
@@ -73,6 +73,33 @@ class FW_Extension_Sign_Form extends FW_Extension {
         }
 
         return fw_render_view( $full_path, $view_variables, $return );
+    }
+
+    /**
+     * This functions prepares attributes to use in template
+     * Converts back escaped characters
+     *
+     * @param $atts
+     *
+     * @return array
+     */
+    public static function prepareAtts( $atts ) {
+        $returnAttributes = array();
+        if ( is_array( $atts ) ) {
+            foreach ( $atts as $key => $val ) {
+                $returnAttributes[ $key ] = str_replace( array(
+                    '`{`',
+                    '`}`',
+                    '``',
+                        ), array(
+                    '[',
+                    ']',
+                    '"',
+                        ), $val );
+            }
+        }
+
+        return $returnAttributes;
     }
 
     public static function signIn() {
@@ -130,8 +157,9 @@ class FW_Extension_Sign_Form extends FW_Extension {
         $user_email  = filter_input( INPUT_POST, 'user_email', FILTER_VALIDATE_EMAIL );
         $first_name  = filter_input( INPUT_POST, 'first_name' );
         $last_name   = filter_input( INPUT_POST, 'last_name' );
-        $gdpr        = filter_input( INPUT_POST, 'gdpr' );
         $redirect_to = filter_input( INPUT_POST, 'redirect_to', FILTER_VALIDATE_URL );
+        $redirect    = filter_input( INPUT_POST, 'redirect' );
+        $gdpr        = filter_input( INPUT_POST, 'gdpr' );
 
         if ( !$user_login ) {
             $errors[ 'user_login' ] = esc_html__( 'Login is required', 'crumina' );
